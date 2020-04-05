@@ -3,9 +3,16 @@ package com.xing.app.diarybook;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.xing.app.diarybook.Activity.ActivityBase;
+import com.xing.app.diarybook.RecyclerView.ItemViewData;
+import com.xing.app.diarybook.RecyclerView.MainAdapter;
 import com.xing.app.myutils.Utils.PermissionUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 日记本项目，开工大吉鸭
@@ -14,6 +21,8 @@ import com.xing.app.myutils.Utils.PermissionUtil;
  */
 public class MainActivity extends ActivityBase {
 
+    private RecyclerView mRecyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,10 +30,26 @@ public class MainActivity extends ActivityBase {
 
         PermissionUtil.permissionEntry(this,getApplicationContext(),true,2333);
 
-//        setTitle("日记本");
-//        hideActionBar();
-        hideBottomBar();
-//        RecyclerView recyclerView
+        mRecyclerView = findViewById(R.id.recycler);
+
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,1));
+        List<ItemViewData> list = new ArrayList<>();
+        list.add(new ItemViewData("测试数据呀，小宁子是最胖的"));
+        list.add(new ItemViewData("测试数据呀，小宁子是最胖的"));
+        list.add(new ItemViewData("测试数据呀，小宁子是最胖的"));
+        list.add(new ItemViewData("测试数据呀，小宁子是最胖的"));
+        list.add(new ItemViewData("测试数据呀，小宁子是最胖的"));
+        list.add(new ItemViewData("测试数据呀，小宁子是最胖的"));
+        list.add(new ItemViewData("测试数据呀，小宁子是最胖的"));
+        list.add(new ItemViewData("测试数据呀，小宁子是最胖的"));
+        list.add(new ItemViewData("测试数据呀，小宁子是最胖的"));
+        list.add(new ItemViewData("测试数据呀，小宁子是最胖的"));
+        list.add(new ItemViewData("测试数据呀，小宁子是最胖的"));
+        list.add(new ItemViewData("测试数据呀，小宁子是最胖的"));
+
+        MainAdapter adapter = new MainAdapter(list);
+
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override

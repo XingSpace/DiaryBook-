@@ -5,5 +5,14 @@ package com.xing.app.diarybook.RecyclerView;
  */
 public class ItemViewData {
 
+    private CharSequence mCharSequence;
+
+    public ItemViewData(CharSequence charSequence){
+        mCharSequence = charSequence;
+    }
+
+    public CharSequence getText(){
+        return mCharSequence;
+    }
 
 }

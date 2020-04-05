@@ -33,6 +33,8 @@ public class MainAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
 
+        holder.setText(mList.get(position).getText());
+
     }
 
     @Override
