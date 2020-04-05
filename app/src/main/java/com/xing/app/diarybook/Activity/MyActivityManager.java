@@ -1,6 +1,9 @@
 package com.xing.app.diarybook.Activity;
 
 import android.app.Activity;
+import android.content.Context;
+
+import com.xing.app.diarybook.MainActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +43,10 @@ public class MyActivityManager {
         if (activity != null && !activity.isFinishing()) activity.finish();
 
         mActivityMap.remove(tag);
+    }
+
+    public static Context getContext(){
+        return mActivityMap.get(MainActivity.class.getSimpleName());
     }
 
 }
