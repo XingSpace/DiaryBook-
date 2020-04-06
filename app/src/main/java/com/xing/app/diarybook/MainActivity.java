@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.xing.app.diarybook.Activity.ActivityBase;
+import com.xing.app.diarybook.Interface.OnItemClickListener;
 import com.xing.app.diarybook.RecyclerView.ItemViewData;
 import com.xing.app.diarybook.RecyclerView.MainAdapter;
+import com.xing.app.myutils.Utils.LogUtil;
 import com.xing.app.myutils.Utils.PermissionUtil;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ import java.util.List;
  *
  * create by xing 2020-4-5
  */
-public class MainActivity extends ActivityBase {
+public class MainActivity extends ActivityBase implements OnItemClickListener {
 
     private RecyclerView mRecyclerView;
 
@@ -48,7 +50,7 @@ public class MainActivity extends ActivityBase {
         list.add(new ItemViewData("测试数据呀，小宁子是最胖的"));
 
         MainAdapter adapter = new MainAdapter(list);
-
+        adapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(adapter);
     }
 
@@ -63,5 +65,11 @@ public class MainActivity extends ActivityBase {
     @Override
     protected String getTag() {
         return getClass().getSimpleName();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        LogUtil.e("被点击到了的->"+position);
+
     }
 }

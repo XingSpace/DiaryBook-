@@ -29,4 +29,8 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     }
 
 
+    public void setOnClick(View.OnClickListener onClick){
+        mTextView.setOnClickListener(onClick);
+    }
+
 }
