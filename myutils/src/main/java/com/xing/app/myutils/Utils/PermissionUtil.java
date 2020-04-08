@@ -83,6 +83,10 @@ public class PermissionUtil {
                 break;
             } else {
                 allPermission = true;
+
+                //获得权限之后，创建文件夹 ps：这里的appName是在myutils包中的gradle中配置的
+                LogUtil.init();
+
             }
         }
         return allPermission;

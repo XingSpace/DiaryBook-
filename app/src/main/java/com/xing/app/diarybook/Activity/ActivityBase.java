@@ -14,7 +14,9 @@ import com.xing.app.diarybook.R;
 
 public abstract class ActivityBase extends AppCompatActivity {
 
-    ConstraintLayout actionBar,bottomBar;
+    private ConstraintLayout actionBar,bottomBar;
+
+    private FrameLayout mLoadingLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +30,9 @@ public abstract class ActivityBase extends AppCompatActivity {
 
         actionBar = findViewById(R.id.title_layout);
         bottomBar = findViewById(R.id.bottom_layout);
+        mLoadingLayout = findViewById(R.id.loading);
+        //拦截掉触摸和单击事件
+        mLoadingLayout.setOnTouchListener((view, motionEvent) -> true);
 
         FrameLayout frameLayout = findViewById(R.id.main_layout);
         frameLayout.addView(getLayoutInflater().inflate(layoutResID, null)
@@ -51,8 +56,27 @@ public abstract class ActivityBase extends AppCompatActivity {
         actionBar.setVisibility(View.GONE);
     }
 
+    protected void showActionBar() {
+        actionBar.setVisibility(View.VISIBLE);
+    }
+
     protected void hideBottomBar(){
         bottomBar.setVisibility(View.GONE);
+    }
+
+    protected void showBottomBar() {
+        bottomBar.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 弹出加载界面，让用户没法操作
+     */
+    protected void showLoadingView() {
+        mLoadingLayout.setVisibility(View.VISIBLE);
+    }
+
+    protected void hideLoadingView() {
+        mLoadingLayout.setVisibility(View.GONE);
     }
 
     @Override

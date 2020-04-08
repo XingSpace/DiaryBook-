@@ -3,6 +3,8 @@
 //打包为aar就解除这一行的注释
 apply plugin: 'com.android.library'
 
+def String appName = "DiaryBook"
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -13,6 +15,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField ("String", "appName", "\"${appName}\"")
+
     }
     buildTypes {
         release {

@@ -2,6 +2,8 @@ package com.xing.app.myutils.Utils;
 
 import android.util.Log;
 
+import com.xing.app.myutils.BuildConfig;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileWriter;
@@ -11,11 +13,11 @@ public class LogUtil {
 
     private LogUtil() {}
 
-    public static String TAG = "MyUtils";
+    public static String TAG = BuildConfig.appName;
 
     public static String path = FileUtil.SD_Path;
 
-    private static String appName = "MyUtils";
+    private static String appName = BuildConfig.appName;
 
     private static final long maxsize = 204800;// 200KB 就换文件
     private static final long timeLimit = 7776000000L;// 90天
@@ -31,6 +33,10 @@ public class LogUtil {
         if (!file.exists() || !file.isDirectory()){
             file.mkdirs();
         }
+    }
+
+    public static void init() {
+        init(TAG);
     }
 
     /**

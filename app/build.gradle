@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+def String appName = "DiaryBook"
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -11,6 +13,10 @@ android {
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        //配置APP变量
+        buildConfigField ("String", "appName", "\"${appName}\"")
+
     }
     buildTypes {
         release {
