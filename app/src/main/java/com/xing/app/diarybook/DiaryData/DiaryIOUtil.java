@@ -17,7 +17,7 @@ public class DiaryIOUtil {
 
     private Context mContext;
 
-    public static DiaryIOUtil mWrite = null;
+    public static DiaryIOUtil ioUtil = null;
 
     /**
      * 保存日记的文件夹
@@ -30,10 +30,10 @@ public class DiaryIOUtil {
     public String diaryPath;
 
     public static DiaryIOUtil getInstance() {
-        if (mWrite == null) {
-            mWrite = new DiaryIOUtil();
+        if (ioUtil == null) {
+            ioUtil = new DiaryIOUtil();
         }
-        return mWrite;
+        return ioUtil;
     }
 
     private DiaryIOUtil() {
@@ -150,11 +150,11 @@ public class DiaryIOUtil {
     }
 
     /**
-     * 是否资源
+     * 释放资源
      */
     public void release() {
         mContext = null;
-        mWrite = null;
+        ioUtil = null;
         System.gc();
     }
 
