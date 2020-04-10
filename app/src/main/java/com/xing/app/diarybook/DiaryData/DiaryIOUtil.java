@@ -8,6 +8,7 @@ import com.xing.app.myutils.Utils.LogUtil;
 import com.xing.app.myutils.Utils.PermissionUtil;
 
 import java.io.File;
+import java.util.Arrays;
 
 /**
  * 将日志写入本地或读取本地日志的工具类
@@ -41,7 +42,7 @@ public class DiaryIOUtil {
 
         for (String tmp : PermissionUtil.tPermissions) {
             if (!PermissionUtil.isGotPermission(tmp, mContext)) {
-                //todo 没有拿到读写权限
+                //没有拿到读写权限
                 release();
                 return;
             }
@@ -50,15 +51,58 @@ public class DiaryIOUtil {
         diaryPath = mContext.getDir(DIARY_DIR, Context.MODE_PRIVATE).getAbsolutePath();
         LogUtil.i("The DiaryDirectory is created!");
 
-        DiaryDataModel dataModel = new DiaryDataModel("            小宁子是最胖的，^-^\n\rnabab");
-
-        write(dataModel);
-
-        String modelForLocal = read(dataModel);
-        LogUtil.e("测试读写功能->"+modelForLocal);
-
     }
 
+    /**
+     * @return 排序后的日志文件
+     */
+    public File[] listFileSort() {
+
+        File[] files = listFiles();
+
+        //升序排列
+        Arrays.sort(files);
+
+        return files;
+    }
+
+    /**
+     * @return 获得排序后的 文件名数组
+     */
+    public String[] listSort() {
+
+        String[] name = list();
+
+        //对数组进行升序排列
+        Arrays.sort(name);
+
+        return name;
+    }
+
+    /**
+     * 获取日记目录下的所有文件名
+     *
+     * @return 返回一个数组，如果数组为空，则表示当前一篇日记都没有
+     */
+    public String[] list() {
+        return mContext.getDir(DIARY_DIR, Context.MODE_PRIVATE).list();
+    }
+
+    /**
+     * 获取日记目录下所有的文件
+     *
+     * @return 返回一个文件数组，每个元素表示一个一篇日志单位
+     */
+    public File[] listFiles() {
+        return mContext.getDir(DIARY_DIR, Context.MODE_PRIVATE).listFiles();
+    }
+
+    /**
+     * 将日记写入文件
+     *
+     * @param model 日记对象
+     * @return 写入成功返回true
+     */
     public boolean write(DiaryDataModel model) {
         if (model == null)
             throw new NullPointerException("write(DiaryDataModel model) -> The model is null!");
@@ -69,15 +113,19 @@ public class DiaryIOUtil {
         if (file == null) return false;
 
         //直接覆盖写入
-        FileUtil.writeToFile(file, model.toJson(), false);
-
-        return true;
+        return FileUtil.writeToFile(file, model.toJson(), false);
     }
 
+    /**
+     * 从文件中读取日志，并解码成DiaryDataModel对象
+     */
     public DiaryDataModel readDiary(File file) {
         return DiaryDataModel.getInstance(read(file));
     }
 
+    /**
+     * 从文件中读取日志，并解码成DiaryDataModel对象
+     */
     public DiaryDataModel readDiary(String path) {
         return DiaryDataModel.getInstance(read(path));
     }
@@ -101,7 +149,9 @@ public class DiaryIOUtil {
         return FileUtil.readFile(file);
     }
 
-
+    /**
+     * 是否资源
+     */
     public void release() {
         mContext = null;
         mWrite = null;
