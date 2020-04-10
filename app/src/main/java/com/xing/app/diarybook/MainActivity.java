@@ -1,12 +1,14 @@
 package com.xing.app.diarybook;
 
 import android.os.Bundle;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.xing.app.diarybook.Activity.ActivityBase;
+import com.xing.app.diarybook.DiaryData.DiaryIOUtil;
 import com.xing.app.diarybook.Interface.OnItemClickListener;
 import com.xing.app.diarybook.RecyclerView.ItemViewData;
 import com.xing.app.diarybook.RecyclerView.MainAdapter;
@@ -24,6 +26,8 @@ import java.util.List;
 public class MainActivity extends ActivityBase implements OnItemClickListener {
 
     private RecyclerView mRecyclerView;
+
+    private FrameLayout exception;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,9 @@ public class MainActivity extends ActivityBase implements OnItemClickListener {
         MainAdapter adapter = new MainAdapter(list);
         adapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(adapter);
+
+        DiaryIOUtil.getInstance();
+
     }
 
     @Override

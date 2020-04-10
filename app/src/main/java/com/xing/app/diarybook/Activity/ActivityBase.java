@@ -1,5 +1,6 @@
 package com.xing.app.diarybook.Activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public abstract class ActivityBase extends AppCompatActivity {
         MyActivityManager.addActivity(getTag(),this);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(R.layout.activity_base);
