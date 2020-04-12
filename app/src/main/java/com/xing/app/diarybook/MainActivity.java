@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.xing.app.diarybook.Activity.ActivityBase;
 import com.xing.app.diarybook.DiaryData.DiaryDataModel;
 import com.xing.app.diarybook.DiaryData.DiaryIOUtil;
+import com.xing.app.diarybook.Fragment.DiaryContentFragment;
 import com.xing.app.diarybook.Interface.OnItemClickListener;
 import com.xing.app.diarybook.RecyclerView.ItemViewData;
 import com.xing.app.diarybook.RecyclerView.MainAdapter;
@@ -29,13 +30,23 @@ import java.util.List;
  */
 public class MainActivity extends ActivityBase implements OnItemClickListener {
 
+    //展示日志的RecyclerView
     private RecyclerView mRecyclerView;
 
+    //展示异常的layout
     private FrameLayout exception_fl;
 
+    //用于展示异常语的textview
     private TextView exception_tv;
 
+    //日记读写工具
     private DiaryIOUtil mDiaryIOUtil;
+
+    //搜索到的日记对象合集
+    private List<ItemViewData> mDataList;
+
+    private DiaryContentFragment mContentFragment;
+    public static final String fragmentTag = "content";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +80,12 @@ public class MainActivity extends ActivityBase implements OnItemClickListener {
         mDiaryIOUtil = DiaryIOUtil.getInstance();
 
         loadDiary();
-
-
     }
 
+    /**
+     * 从本地加载日志出来
+     * 如果没有日志，会显示一个 exception
+     */
     private void loadDiary() {
         File[] files = mDiaryIOUtil.listFileSort();
         if (files.length <= 0) {
@@ -81,19 +94,19 @@ public class MainActivity extends ActivityBase implements OnItemClickListener {
             return;
         }
 
-        List<ItemViewData> list = new ArrayList<>();
+        mDataList = new ArrayList<>();
 
         for (File file : files) {
             DiaryDataModel dataModel = mDiaryIOUtil.readDiary(file);
             if (dataModel != null) {
-                list.add(new ItemViewData(dataModel));
+                mDataList.add(new ItemViewData(dataModel));
             }
         }
 
-        MainAdapter adapter = new MainAdapter(list);
+        MainAdapter adapter = new MainAdapter(mDataList);
         adapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(adapter);
-        mRecyclerView.scrollToPosition(adapter.getItemCount()-1);
+        mRecyclerView.scrollToPosition(adapter.getItemCount() - 1);
 
         hideLoadingView();
     }
@@ -102,6 +115,21 @@ public class MainActivity extends ActivityBase implements OnItemClickListener {
     public void onItemClick(int position) {
         LogUtil.e("被点击到了的->" + position);
 
+        if (mContentFragment == null) {
+            mContentFragment = new DiaryContentFragment();
+        }
+
+        mContentFragment.setData(mDataList.get(position));
+        addFragment(R.id.fragment_root, mContentFragment, fragmentTag);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().popBackStackImmediate()) {
+            return;
+        }
+        super.onBackPressed();
     }
 
     /**
@@ -113,7 +141,8 @@ public class MainActivity extends ActivityBase implements OnItemClickListener {
 
     /**
      * 发生异常时回调
-     * @param tips
+     *
+     * @param tips 提示语
      */
     protected void onException(String tips) {
         exception_fl.setVisibility(View.VISIBLE);
@@ -132,13 +161,26 @@ public class MainActivity extends ActivityBase implements OnItemClickListener {
         exception_tv = null;
         mDiaryIOUtil.release();
         super.onDestroy();
+        if (mContentFragment != null) mContentFragment.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mContentFragment != null) mContentFragment.onStop();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mContentFragment != null) mContentFragment.onPause();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode != 2333) return;
-        for (int i : grantResults){
+        for (int i : grantResults) {
             if (i != 0) {
                 return;
             }
