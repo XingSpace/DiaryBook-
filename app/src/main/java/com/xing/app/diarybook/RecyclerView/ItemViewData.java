@@ -13,6 +13,11 @@ public class ItemViewData {
     private CharSequence mCharSequence;
 
     /**
+     * 时间字符串
+     */
+    private String strTime;
+
+    /**
      * 日记对象
      */
     private DiaryDataModel mDataModel;
@@ -32,16 +37,25 @@ public class ItemViewData {
 
     private void init() {
         if (mDataModel != null) {
-            setCharSequence(mDataModel.getContent());
+            setContent(mDataModel.getContent());
+            setStrTime(mDataModel.getStringDate());
         }
     }
 
-    public CharSequence getText() {
+    public CharSequence getContent() {
         return mCharSequence;
     }
 
-    public void setCharSequence(CharSequence charSequence) {
+    public void setContent(CharSequence charSequence) {
         mCharSequence = charSequence;
+    }
+
+    public void setStrTime(String s) {
+        strTime = s;
+    }
+
+    public String getStrTime() {
+        return strTime;
     }
 
     public DiaryDataModel getDataModel() {

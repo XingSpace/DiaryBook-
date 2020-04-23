@@ -6,8 +6,15 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/time"
+        android:text="2020-4-13"
+        android:textSize="13sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
         android:id="@+id/text"
-        android:text="测试文字哦，小宁子是最胖的.测试文字哦，小宁子是最胖的。测试文字哦，小宁子是最胖的测试文字哦，小宁子是最胖的"
+        android:text=""
         android:textSize="21sp"
         android:padding="6dp"
         android:layout_margin="9dp"

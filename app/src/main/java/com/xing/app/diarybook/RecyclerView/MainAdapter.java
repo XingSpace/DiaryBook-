@@ -36,7 +36,8 @@ public class MainAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
 
-        holder.setText(mList.get(position).getText());
+        holder.setContent(mList.get(position).getContent());
+        holder.setTime(mList.get(position).getStrTime());
         holder.setOnClick(view -> {
             if (mOnItemClickListener!=null) {
                 mOnItemClickListener.onItemClick(position);

@@ -51,7 +51,7 @@ public class DiaryContentFragment extends FragmentBase {
         View view = inflater.inflate(R.layout.fragment_content, container, false);
 
         mTextView = view.findViewById(R.id.content_tv);
-        mTextView.setText(mData.getText());
+        mTextView.setText(mData.getContent());
 
         return view;
     }

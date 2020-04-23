@@ -15,22 +15,27 @@ import com.xing.app.myutils.Utils.DrawableBuilder;
  */
 public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-    TextView mTextView;
+    TextView content,time;
 
     public ItemViewHolder(@NonNull View itemView) {
         super(itemView);
-        mTextView = itemView.findViewById(R.id.text);
+        content = itemView.findViewById(R.id.text);
+        time = itemView.findViewById(R.id.time);
+
         Drawable drawable = new DrawableBuilder().setColor(0xff008577).setRadius(5f).create();
-        mTextView.setBackground(drawable);
+        content.setBackground(drawable);
     }
 
-    public void setText(CharSequence charSequence){
-        mTextView.setText(charSequence);
+    public void setContent(CharSequence charSequence){
+        content.setText(charSequence);
     }
-
 
     public void setOnClick(View.OnClickListener onClick){
-        mTextView.setOnClickListener(onClick);
+        content.setOnClickListener(onClick);
+    }
+
+    public void setTime(String s) {
+        time.setText(s);
     }
 
 }

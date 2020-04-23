@@ -53,6 +53,9 @@ public class MainActivity extends ActivityBase implements OnItemClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        int[] arr = new int[3];
+//        int i = arr[6];
+
         findViews();
 
         showLoadingView();
