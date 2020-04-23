@@ -150,9 +150,4 @@ public abstract class ActivityBase extends AppCompatActivity {
         mLoadingLayout.setVisibility(View.GONE);
     }
 
-    @Override
-    protected void onDestroy() {
-        MyActivityManager.closeActivity(getTag());
-        super.onDestroy();
-    }
 }

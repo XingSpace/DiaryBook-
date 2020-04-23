@@ -158,7 +158,20 @@ public class MainActivity extends ActivityBase implements OnItemClickListener {
     }
 
     @Override
+    protected void onStart() {
+        LogUtil.e("MainActivity onStart");
+        super.onStart();
+    }
+
+    @Override
+    protected void onRestart() {
+        LogUtil.e("MainActivity onRestart");
+        super.onRestart();
+    }
+
+    @Override
     protected void onDestroy() {
+        LogUtil.e("MainActivity onDestroy");
         mRecyclerView.removeAllViews();
         exception_fl = null;
         exception_tv = null;
@@ -169,12 +182,14 @@ public class MainActivity extends ActivityBase implements OnItemClickListener {
 
     @Override
     protected void onStop() {
+        LogUtil.e("MainActivity onStop");
         super.onStop();
         if (mContentFragment != null) mContentFragment.onStop();
     }
 
     @Override
     protected void onPause() {
+        LogUtil.e("MainActivity onPause");
         super.onPause();
         if (mContentFragment != null) mContentFragment.onPause();
     }
