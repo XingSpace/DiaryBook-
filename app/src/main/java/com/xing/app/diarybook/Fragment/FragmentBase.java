@@ -44,6 +44,7 @@ public abstract class FragmentBase extends Fragment implements OnFragmentTouchLi
     public void onStart() {
         super.onStart();
         LogUtil.i("FragmentBase onStart -> " + tag());
+        //在这里完成触摸事件的传递
         getView().setOnTouchListener((view, motionEvent) -> FragmentBase.this.onTouch(motionEvent));
     }
 

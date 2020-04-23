@@ -23,6 +23,11 @@ public class DiaryDataModel {
      */
     private String content;
 
+    /**
+     *
+     * @param json DiaryDataModel的json格式
+     * @return 如果不是一个标准的日志格式，将会返回一个null
+     */
     public static DiaryDataModel getInstance(String json) {
         DiaryDataModel model = null;
         try {

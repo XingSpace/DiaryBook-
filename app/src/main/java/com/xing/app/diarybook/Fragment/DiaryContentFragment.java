@@ -15,6 +15,9 @@ import com.xing.app.diarybook.R;
 import com.xing.app.diarybook.RecyclerView.ItemViewData;
 import com.xing.app.myutils.Utils.LogUtil;
 
+/**
+ * 展示日记内容的Fragment
+ */
 public class DiaryContentFragment extends FragmentBase {
 
     private ItemViewData mData;

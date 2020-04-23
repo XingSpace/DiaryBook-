@@ -146,6 +146,8 @@ public class DiaryIOUtil {
     }
 
     public String read(File file) {
+        if (file == null || !file.getName().endsWith(".dia"))
+            throw new IllegalArgumentException("read(File file)->The file is fault");
         return FileUtil.readFile(file);
     }
 
